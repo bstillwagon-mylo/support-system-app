@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { supabase } from "./supabase";
+import { useNavigate } from "react-router-dom";
 
 const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/
 
@@ -29,6 +30,7 @@ export const useSupabaseSession = () => {
             }
           } else {
             setUser(null);
+
           }
         } catch (error) {
           console.error('Error checking session:', error);
@@ -38,7 +40,7 @@ export const useSupabaseSession = () => {
       checkSession();
     }, []);
   
-    return user;
+    return { user };
   };
   
   export default useSupabaseSession;

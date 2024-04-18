@@ -1,6 +1,6 @@
 import React, { FC, ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { supabase } from '../utils/supabase';
+import { signOut } from '../utils/supabase';
 import './Layout.css'
 
 interface LayoutProps {
@@ -12,7 +12,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 
   const handleLogout = async () => {
     try {
-      await supabase.auth.signOut();
+      await signOut();
       navigate('/');
     } catch (error) {
       console.error('Error logging out:', error);
