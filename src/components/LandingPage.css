@@ -1,0 +1,42 @@
+.landing-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 2rem;
+    text-align: center;
+  }
+  
+  .landing-page__title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+  
+  .landing-page__description {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .landing-page__actions {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .landing-page__action {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #fff;
+    background-color: #2c3e50;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .landing-page__action:hover {
+    background-color: #34495e;
+  }
