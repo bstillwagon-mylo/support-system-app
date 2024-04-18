@@ -1,6 +1,5 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { supabase } from '../utils/supabase';
 import './LandingPage.css'
 
 const LandingPage: React.FC = () => {
@@ -11,13 +10,7 @@ const LandingPage: React.FC = () => {
   };
 
   const handleCreateTicket = async () => {
-    // Check if the user is authenticated
-    const { data: { user } } = await supabase.auth.getUser();
-    if (user) {
-      navigate('/tickets/new');
-    } else {
-      navigate('/login');
-    }
+    navigate('/tickets/new');
   };
 
   return (
@@ -27,12 +20,13 @@ const LandingPage: React.FC = () => {
         Manage your customer support tickets with ease.
       </p>
       <div className="landing-page__actions">
+      <button className="landing-page__action" onClick={handleCreateTicket}>
+          Create Support Ticket
+        </button>
         <button className="landing-page__action" onClick={handleLogin}>
-          Login
+          Support Login
         </button>
-        <button className="landing-page__action" onClick={handleCreateTicket}>
-          Create Ticket
-        </button>
+        
       </div>
     </div>
   );
