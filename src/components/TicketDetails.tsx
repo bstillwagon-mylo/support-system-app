@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { getTicket, updateTicketStatus } from '../utils/api'
+import { getTicket, updateTicketStatus, sendResponseMessage } from '../utils/api'
 import { Ticket } from '../utils/types'
 import useSupabaseSession from '../utils/helpers'
 import LoginPage from './LoginPage'
@@ -9,7 +9,7 @@ import './TicketDetails.css'
 const TicketDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>()
   const [ticket, setTicket] = useState<Ticket | null>(null)
-  const [response, setResponse] = useState('')
+  const [responseMessage, setResponseMessage] = useState('')
   const navigate = useNavigate()
   const { user } = useSupabaseSession()
 
@@ -24,7 +24,6 @@ const TicketDetails: React.FC = () => {
         console.error('Error fetching ticket:', error)
       }
     }
-
     fetchTicket()
   }, [id])
 
@@ -36,6 +35,17 @@ const TicketDetails: React.FC = () => {
       console.log('setTicket')
     } catch (error) {
       console.error('Error updating ticket:', error)
+    }
+  }
+
+  const handleSendResponse = async () => {
+    try {
+      // @ts-ignore: Object is possibly 'null'.
+      await sendResponseMessage(id, responseMessage)
+      setResponseMessage('')
+      console.log('Response sent successfully')
+    } catch (error) {
+      console.error('Error sending response:', error)
     }
   }
 
@@ -55,10 +65,11 @@ const TicketDetails: React.FC = () => {
             <p>Description: {ticket.description}</p>
             <p>Status: {ticket.status}</p>
             <textarea
-              value={response}
-              onChange={(e) => setResponse(e.target.value)}
+              value={responseMessage}
+              onChange={(e) => setResponseMessage(e.target.value)}
               placeholder="Enter your response"
             />
+            <button onClick={handleSendResponse}>Send Response</button>
             {ticket.status === 'New' && (
               <button onClick={() => handleUpdateStatus('In Progress')}>
                 Mark as In Progress

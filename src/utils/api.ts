@@ -60,3 +60,20 @@ export async function updateTicketStatus(ticketId: string, newStatus: 'In Progre
 
   return await response.json();
 }
+
+export async function sendResponseMessage(id: string, message: string) {
+  const response = await fetch(apiUrl + '/api/sendMessage', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({message}),
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to send message');
+  }
+
+  return await response.json();
+  
+}
