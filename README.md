@@ -1,6 +1,10 @@
-# Getting Started with Create React App
+# TODO - Next Steps
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- Add test cases for UI and API 
+- Integrate Zod
+- Improve type safety and error handling
+- Update styling
+- Once API deployment is more stable, remove the ngrok header from the API calls (`/src/utils/api.ts`)
 
 ## Available Scripts
 
