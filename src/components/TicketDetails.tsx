@@ -4,13 +4,14 @@ import { getTicket, updateTicketStatus } from '../utils/api'
 import { Ticket } from '../utils/types'
 import useSupabaseSession from '../utils/helpers'
 import LoginPage from './LoginPage'
+import './TicketDetails.css'
 
 const TicketDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>()
   const [ticket, setTicket] = useState<Ticket | null>(null)
   const [response, setResponse] = useState('')
   const navigate = useNavigate()
-  const {user} = useSupabaseSession()
+  const { user } = useSupabaseSession()
 
   useEffect(() => {
     const fetchTicket = async () => {
@@ -47,7 +48,7 @@ const TicketDetails: React.FC = () => {
       {user ? (
         <>
           {' '}
-          <div>
+          <div className='ticketDetails'>
             <h1>Ticket Details</h1>
             <p>Customer Name: {ticket.name}</p>
             <p>Customer Email: {ticket.email}</p>

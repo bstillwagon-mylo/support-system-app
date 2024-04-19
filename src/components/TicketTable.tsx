@@ -4,6 +4,7 @@ import { getTickets } from '../utils/api'
 import useSupabaseSession from '../utils/helpers'
 import LoginPage from './LoginPage'
 import { useNavigate } from 'react-router-dom'
+import './TicketTable.css'
 
 const TicketTable: React.FC = () => {
   const [tickets, setTickets] = useState<Ticket[]>([])
@@ -24,7 +25,7 @@ const TicketTable: React.FC = () => {
   }, [])
 
   return (
-    <div>
+    <div className='ticketTable'>
       {user ? (
         <>
           <h1>Ticket Table</h1>
