@@ -25,7 +25,7 @@ const TicketTable: React.FC = () => {
   }, [])
 
   return (
-    <div className='ticketTable'>
+    <div className="ticketTable">
       {user ? (
         <>
           <h1>Support Tickets</h1>
@@ -40,16 +40,22 @@ const TicketTable: React.FC = () => {
             </thead>
             <tbody>
               {tickets.map((ticket) => (
-                <tr key={ticket.id} onClick={() => navigate(`/ticket/${ticket.id}`)}>
-                <td>{ticket.status}</td>
-                <td>{ticket.name}</td>
-                <td>{ticket.description}</td>
-                <td>
-                  <button className="seeDetailsBtn" onClick={() => navigate(`/ticket/${ticket.id}`)}>
-                    Details
-                  </button>
-                </td>
-              </tr>
+                <tr
+                  key={ticket.id}
+                  onClick={() => navigate(`/ticket/${ticket.id}`)}
+                >
+                  <td>{ticket.status}</td>
+                  <td>{ticket.name}</td>
+                  <td>{ticket.description}</td>
+                  <td>
+                    <button
+                      className="seeDetailsBtn"
+                      onClick={() => navigate(`/ticket/${ticket.id}`)}
+                    >
+                      Details
+                    </button>
+                  </td>
+                </tr>
               ))}
             </tbody>
           </table>

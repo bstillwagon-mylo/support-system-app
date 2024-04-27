@@ -1,23 +1,23 @@
-import React, { FC, ReactNode } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { signOut } from '../utils/supabase';
+import React, { FC, ReactNode } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { signOut } from '../utils/supabase'
 import './Layout.css'
 
 interface LayoutProps {
-  children: ReactNode;
+  children: ReactNode
 }
 
 const Layout: FC<LayoutProps> = ({ children }) => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const handleLogout = async () => {
     try {
-      await signOut();
-      navigate('/');
+      await signOut()
+      navigate('/')
     } catch (error) {
-      console.error('Error logging out:', error);
+      console.error('Error logging out:', error)
     }
-  };
+  }
 
   return (
     <div className="layout">
@@ -36,7 +36,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
         <p>&copy;2024 My Ticket App</p>
       </footer>
     </div>
-  );
-};
+  )
+}
 
-export default Layout;
+export default Layout

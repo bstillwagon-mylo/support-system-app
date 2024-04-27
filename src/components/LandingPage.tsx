@@ -1,17 +1,17 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import './LandingPage.css'
 
 const LandingPage: React.FC = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const handleLogin = () => {
-    navigate('/login');
-  };
+    navigate('/login')
+  }
 
   const handleCreateTicket = async () => {
-    navigate('/tickets/new');
-  };
+    navigate('/tickets/new')
+  }
 
   return (
     <div className="landing-page">
@@ -20,16 +20,15 @@ const LandingPage: React.FC = () => {
         Manage your customer support tickets with ease.
       </p>
       <div className="landing-page__actions">
-      <button className="landing-page__action" onClick={handleCreateTicket}>
+        <button className="landing-page__action" onClick={handleCreateTicket}>
           Create Support Ticket
         </button>
         <button className="landing-page__action" onClick={handleLogin}>
           Support Login
         </button>
-        
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default LandingPage;
+export default LandingPage

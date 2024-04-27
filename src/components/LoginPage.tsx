@@ -6,7 +6,7 @@ import TicketTable from './TicketTable'
 import { useNavigate } from 'react-router-dom'
 
 const LoginPage: React.FC<{ onLogin?: () => void }> = ({ onLogin }) => {
-//const LoginPage: React.FC = () => {
+  //const LoginPage: React.FC = () => {
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')

@@ -1,13 +1,13 @@
-import React from 'react';
+import React from 'react'
 import './FormField.css'
 
 interface FormFieldProps {
-  label: string;
-  id: string;
-  value: string;
-  onChange: (value: string) => void;
-  type?: 'text' | 'email' | 'textarea';
-  error?: string;
+  label: string
+  id: string
+  value: string
+  onChange: (value: string) => void
+  type?: 'text' | 'email' | 'textarea'
+  error?: string
 }
 
 const FormField: React.FC<FormFieldProps> = ({
@@ -41,7 +41,7 @@ const FormField: React.FC<FormFieldProps> = ({
       )}
       {error && <div className="ticket-form__error">{error}</div>}
     </div>
-  );
-};
+  )
+}
 
-export default FormField;
+export default FormField
