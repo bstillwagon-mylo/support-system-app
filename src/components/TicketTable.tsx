@@ -28,27 +28,28 @@ const TicketTable: React.FC = () => {
     <div className='ticketTable'>
       {user ? (
         <>
-          <h1>Ticket Table</h1>
+          <h1>Support Tickets</h1>
           <table>
             <thead>
               <tr>
-                <th>ID</th>
                 <th>Status</th>
                 <th>Customer Name</th>
                 <th>Description</th>
+                <th>Details</th>
               </tr>
             </thead>
             <tbody>
               {tickets.map((ticket) => (
-                <tr
-                  key={ticket.id}
-                  onClick={() => navigate(`/ticket/${ticket.id}`)}
-                >
-                  <td>{ticket.id}</td>
-                  <td>{ticket.status}</td>
-                  <td>{ticket.name}</td>
-                  <td>{ticket.description}</td>
-                </tr>
+                <tr key={ticket.id} onClick={() => navigate(`/ticket/${ticket.id}`)}>
+                <td>{ticket.status}</td>
+                <td>{ticket.name}</td>
+                <td>{ticket.description}</td>
+                <td>
+                  <button className="seeDetailsBtn" onClick={() => navigate(`/ticket/${ticket.id}`)}>
+                    Details
+                  </button>
+                </td>
+              </tr>
               ))}
             </tbody>
           </table>
