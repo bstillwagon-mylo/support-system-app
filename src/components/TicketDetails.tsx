@@ -87,7 +87,7 @@ const TicketDetails: React.FC<TicketDetailsProps> = ({ onSubmitSuccess }) => {
             <div className="ticket-details__info">
               <div className="ticket-details__info-item">
                 <span className="ticket-details__info-label">
-                  Customer Name:
+                  Customer:
                 </span>
                 <span className="ticket-details__info-value">
                   {ticket.name}
@@ -95,7 +95,7 @@ const TicketDetails: React.FC<TicketDetailsProps> = ({ onSubmitSuccess }) => {
               </div>
               <div className="ticket-details__info-item">
                 <span className="ticket-details__info-label">
-                  Customer Email:
+                  Email:
                 </span>
                 <span className="ticket-details__info-value">
                   {ticket.email}

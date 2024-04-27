@@ -33,7 +33,7 @@ const TicketTable: React.FC = () => {
             <thead>
               <tr>
                 <th>Status</th>
-                <th>Customer Name</th>
+                <th>Customer</th>
                 <th>Description</th>
                 <th>Details</th>
               </tr>
