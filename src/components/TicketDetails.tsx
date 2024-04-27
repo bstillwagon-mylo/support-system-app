@@ -41,7 +41,6 @@ const TicketDetails: React.FC<TicketDetailsProps> = ({ onSubmitSuccess }) => {
       // @ts-ignore: Object is possibly 'null'.
       const data = await updateTicketStatus(id, newStatus)
       setTicket(data)
-      console.log('setTicket')
     } catch (error) {
       console.error('Error updating ticket:', error)
     }
