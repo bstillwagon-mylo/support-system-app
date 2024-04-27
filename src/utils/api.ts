@@ -5,7 +5,6 @@ export async function getTickets(): Promise<Ticket[]> {
   const response = await fetch(apiUrl + `/api/tickets`, {
     headers: {
       'Content-Type': 'application/json',
-      'ngrok-skip-browser-warning': '69420',
     },
   })
 
@@ -20,7 +19,6 @@ export async function getTicket(id: string): Promise<Ticket[]> {
   const response = await fetch(apiUrl + `/api/tickets/${id}`, {
     headers: {
       'Content-Type': 'application/json',
-      'ngrok-skip-browser-warning': '69420',
     },
   })
 
@@ -40,7 +38,6 @@ export async function createTicket(ticket: {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'ngrok-skip-browser-warning': '69420',
     },
     body: JSON.stringify(ticket),
   })
@@ -60,7 +57,6 @@ export async function updateTicketStatus(
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
-      'ngrok-skip-browser-warning': '69420',
     },
     body: JSON.stringify({ status: newStatus }),
   })
@@ -77,9 +73,8 @@ export async function sendResponseMessage(id: string, message: string) {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'ngrok-skip-browser-warning': '69420',
     },
-    body: JSON.stringify({ message }),
+    body: JSON.stringify({ message: message }),
   })
 
   if (!response.ok) {
