@@ -1,15 +1,24 @@
 import React, { useState, useEffect } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
-import { getTicket, updateTicketStatus, sendResponseMessage } from '../utils/api'
+import { Link, useNavigate, useParams } from 'react-router-dom'
+import {
+  getTicket,
+  updateTicketStatus,
+  sendResponseMessage,
+} from '../utils/api'
 import { Ticket } from '../utils/types'
 import useSupabaseSession from '../utils/helpers'
 import LoginPage from './LoginPage'
 import './TicketDetails.css'
 
-const TicketDetails: React.FC = () => {
+interface TicketDetailsProps {
+  onSubmitSuccess?: () => void
+}
+
+const TicketDetails: React.FC<TicketDetailsProps> = ({ onSubmitSuccess }) => {
   const { id } = useParams<{ id: string }>()
   const [ticket, setTicket] = useState<Ticket | null>(null)
   const [responseMessage, setResponseMessage] = useState('')
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false)
   const navigate = useNavigate()
   const { user } = useSupabaseSession()
 
@@ -41,12 +50,26 @@ const TicketDetails: React.FC = () => {
   const handleSendResponse = async () => {
     try {
       // @ts-ignore: Object is possibly 'null'.
-      await sendResponseMessage(id, responseMessage)
-      setResponseMessage('')
-      console.log('Response sent successfully')
+      const response = await sendResponseMessage(id, responseMessage)
+
+      if (response) {
+        setShowSuccessMessage(true)
+        if (onSubmitSuccess) {
+          onSubmitSuccess()
+        }
+        setResponseMessage('')
+        console.log('Response sent successfully')
+      } else {
+        console.log('Error sending response:', response)
+      }
     } catch (error) {
       console.error('Error sending response:', error)
     }
+  }
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setShowSuccessMessage(false)
+    setResponseMessage(e.target.value)
   }
 
   if (!ticket) {
@@ -57,32 +80,74 @@ const TicketDetails: React.FC = () => {
     <div>
       {user ? (
         <>
-          {' '}
-          <div className='ticketDetails'>
-            <h1>Ticket Details</h1>
-            <p>Customer Name: {ticket.name}</p>
-            <p>Customer Email: {ticket.email}</p>
-            <p>Description: {ticket.description}</p>
-            <p>Status: {ticket.status}</p>
+          <div className="ticket-details">
+            <Link to="/tickets" className="back-link">
+              Back to Ticket Table
+            </Link>
+            <h1 className="ticket-details__title">Ticket Details</h1>
+            <div className="ticket-details__info">
+              <div className="ticket-details__info-item">
+                <span className="ticket-details__info-label">
+                  Customer Name:
+                </span>
+                <span className="ticket-details__info-value">
+                  {ticket.name}
+                </span>
+              </div>
+              <div className="ticket-details__info-item">
+                <span className="ticket-details__info-label">
+                  Customer Email:
+                </span>
+                <span className="ticket-details__info-value">
+                  {ticket.email}
+                </span>
+              </div>
+              <div className="ticket-details__info-item">
+                <span className="ticket-details__info-label">Description:</span>
+                <span className="ticket-details__info-value">
+                  {ticket.description}
+                </span>
+              </div>
+              <div className="ticket-details__info-item">
+                <span className="ticket-details__info-label">Status:</span>
+                <span className="ticket-details__info-value ticket-details__status">
+                  {ticket.status}
+                  {ticket.status === 'New' && (
+                    <button
+                      className="ticket-details__status-button"
+                      onClick={() => handleUpdateStatus('In Progress')}
+                    >
+                      Mark In Progress
+                    </button>
+                  )}
+                  {ticket.status === 'In Progress' && (
+                    <button
+                      className="ticket-details__status-button"
+                      onClick={() => handleUpdateStatus('Resolved')}
+                    >
+                      Mark Resolved
+                    </button>
+                  )}
+                </span>
+              </div>
+            </div>
             <textarea
+              className="ticket-details__response"
               value={responseMessage}
-              onChange={(e) => setResponseMessage(e.target.value)}
+              onChange={handleInputChange}
               placeholder="Enter your response"
             />
-            <button onClick={handleSendResponse}>Send Response</button>
-            {ticket.status === 'New' && (
-              <button onClick={() => handleUpdateStatus('In Progress')}>
-                Mark as In Progress
-              </button>
-            )}
-            {ticket.status === 'In Progress' && (
-              <button onClick={() => handleUpdateStatus('Resolved')}>
-                Mark as Resolved
-              </button>
-            )}
-            <button onClick={() => navigate('/tickets')}>
-              Back to Ticket Table
+            <button
+              className="ticket-details__submit"
+              onClick={handleSendResponse}
+            >
+              Send Response
             </button>
+            {showSuccessMessage && (
+              <div className="ticket-form__success">
+                Response sent successfully!
+              </div>
+            )}
           </div>
         </>
       ) : (
